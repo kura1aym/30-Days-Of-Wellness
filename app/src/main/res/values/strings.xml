@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">30 Days Of Wellness</string>
+    <string name="variables">Variables</string>
+    <string name="variables_summary">A variable is a storage location identified by a memory address and an associated symbolic name (an identifier), which contains some known or unknown quantity of information referred to as a value.</string>
+    <string name="data_types">Data Types</string>
+    <string name="data_types_summary">Data types specify the different sizes and values that can be stored in the variable. Common data types include integers, floating-point numbers, and characters.</string>
+    <string name="functions">Functions</string>
+    <string name="functions_summary">A function is a block of organized, reusable code that performs a specific task. It is a self-contained unit of code that can be invoked by other parts of the program.</string>
+    <string name="conditions">Conditions</string>
+    <string name="conditions_summary">Conditions allow you to make decisions in your code. Common constructs include if statements and switch statements, which execute different code based on specified conditions.</string>
+    <string name="loops">Loops</string>
+    <string name="loops_summary">Loops are used to repeat a block of code until a certain condition is met. Common types of loops include for loops, while loops, and do-while loops.</string>
+    <string name="arrays">Arrays</string>
+    <string name="arrays_summary">Arrays are used to store multiple values of the same type. They provide a way to work with collections of data in a more organized manner.</string>
+    <string name="functions_higher_order">Higher-Order Functions</string>
+    <string name="functions_higher_order_summary">Higher-order functions are functions that take other functions as parameters or return functions. They are a powerful concept in functional programming.</string>
+
 </resources>
