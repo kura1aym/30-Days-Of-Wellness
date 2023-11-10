@@ -5,10 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.a30daysofwellness.model.ProgrammingConcept
 import com.example.a30daysofwellness.model.programmingConcepts
 import com.example.a30daysofwellness.ui.theme._30DaysOfWellnessTheme
+import androidx.compose.foundation.lazy.items
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +48,25 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ProgrammingConceptsApp(programmingConcepts: List<ProgrammingConcept>) {
-
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(
+            text = "30 Days of Wellness",
+            style = MaterialTheme.typography.displayLarge,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        LazyColumn {
+            items(programmingConcepts) { concept ->
+                ProgrammingConceptCard(concept = concept)
+                Spacer(modifier = Modifier.height(16.dp)) // Add some spacing between cards
+            }
+        }
+    }
 }
+
 
 @Composable
 fun ProgrammingConceptCard(concept: ProgrammingConcept) {
