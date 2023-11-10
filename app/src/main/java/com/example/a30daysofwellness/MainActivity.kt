@@ -3,7 +3,15 @@ package com.example.a30daysofwellness
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,6 +36,8 @@ import com.example.a30daysofwellness.model.ProgrammingConcept
 import com.example.a30daysofwellness.model.programmingConcepts
 import com.example.a30daysofwellness.ui.theme._30DaysOfWellnessTheme
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,27 +77,28 @@ fun ProgrammingConceptsApp(programmingConcepts: List<ProgrammingConcept>) {
     }
 }
 
-
 @Composable
 fun ProgrammingConceptCard(concept: ProgrammingConcept) {
+    var isExpanded by remember { mutableStateOf(false) }
+
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
                 .fillMaxWidth()
         ) {
             Text(
                 text = "Day ${concept.day}",
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(16.dp)
             )
             Text(
                 text = stringResource(concept.titleRes),
                 style = MaterialTheme.typography.displayMedium,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
             )
 
             Image(
@@ -100,23 +111,40 @@ fun ProgrammingConceptCard(concept: ProgrammingConcept) {
                 contentScale = ContentScale.Crop
             )
 
-            Text(
-                text = stringResource(id = concept.summaryRes),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                    .clickable {
+                        isExpanded = !isExpanded
+                    }
+            ) {
+                Text(
+                    text = if (isExpanded) "Show Less" else "Show More",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
 
-            Text(
-                text = concept.details,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
+            AnimatedVisibility(
+                visible = isExpanded,
+                enter = fadeIn(animationSpec = tween(300)),
+                exit = fadeOut(animationSpec = tween(300))
+            ) {
+                Text(
+                    text = stringResource(id = concept.summaryRes),
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
         }
     }
 }
+
+
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun ProgrammingConceptCardPreview() {
     _30DaysOfWellnessTheme {
         val programmingConcept = ProgrammingConcept(
             day = 1,
